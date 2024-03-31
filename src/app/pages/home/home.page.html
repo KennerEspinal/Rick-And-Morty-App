@@ -1,0 +1,57 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>
+      <div>Ionic v7</div>
+      <strong>Rick And Morty</strong>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="glass-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-searchbar placeholder="Buscar Personaje..."  [(ngModel)]="params.name" (ionInput)="searchCharacters()" [debounce]="250" ></ion-searchbar>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col
+          routerLink="/character-detail/{{item.id}}"
+          *ngFor="let item of characters"
+          sizeLg="6"
+          sizeMd="6"
+          sizeSm="12"
+          size="12"
+        >
+          <ion-card>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-padding" sizeLg="4" sizeMd="4" sizeSm="4" size="12">
+                  <ion-avatar>
+                    <img [src]="item.image" />
+                  </ion-avatar>
+                </ion-col>
+                <ion-col class="ion-padding" sizeLg="8" sizeMd="8" sizeSm="8" size="12">
+                  <div class="name">{{item.name}}</div>
+                  <p>
+                    Visto por primera vez: <br />
+                    <strong> {{item.origin.name}}</strong>
+                  </p>
+                  <p>
+                    Visto por última vez: <br />
+                    <strong> {{item.location.name}}</strong>
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll threshold="25%" position="bottom" (ionInfinite)="getCharacters($event)">
+      <ion-infinite-scroll-content >
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>
